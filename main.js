@@ -1,8 +1,8 @@
 const numberHours = document.querySelector('.number-hours');
-const barSeconds = document.querySelector('.bar-seconds'); 
+const barSeconds = document.querySelector('.bar-seconds');
 
 const numberEl = [];
-const barEl = []; 
+const barEl = [];
 
 //create number hours
 for (let i = 1; i <= 12; i++) {
@@ -12,15 +12,36 @@ for (let i = 1; i <= 12; i++) {
     console.log(numberEl);
 }
 
-numberHours.insertAdjacentHTML("afterbegin", numberEl.join("")); 
+numberHours.insertAdjacentHTML("afterbegin", numberEl.join(""));
 
 
 //create bar seconds
-for (let i = 1; i <= 60; i++){
+for (let i = 1; i <= 60; i++) {
     barEl.push(
         `<span style="--index: ${i};"><p></p></span>`
     );
-    console.log(barEl); 
+    console.log(barEl);
 }
 
-barSeconds.insertAdjacentHTML("afterbegin", barEl.join("")); 
+barSeconds.insertAdjacentHTML("afterbegin", barEl.join(""));
+
+const handHours = document.querySelector('.hand.hours');
+const handMinutes = document.querySelector('.hand.minutes');
+const handSeconds = document.querySelector('.hand.seconds');
+
+function getCurrentTime() {
+    let date = new Date();
+    let currentHours = date.getHours();
+    let currentMinutes = date.getMinutes();
+    let currentSeconds = date.getSeconds();
+
+    handHours.style.transform = `rotate(${currentHours * 30 + currentMinutes / 2}deg)`
+    handMinutes.style.transform = `rotate(${currentMinutes * 6}deg)`
+    handSeconds.style.transform = `rotate(${currentSeconds * 6}deg)`
+}
+
+// call a function getCurrentTime on page load
+getCurrentTime(); 
+
+//call function to set Clock hands every second
+setInterval(getCurrentTime, 1000); //1000ms = 1s
